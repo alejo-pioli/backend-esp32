@@ -35,7 +35,21 @@ export const CH4ReadingTable = sequelize.define("CH4Reading", {
     value: { type: DataTypes.DOUBLE, allowNull: false },
 });
 
+export const COReadingTable = sequelize.define("COReading", {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    date: { type: DataTypes.DATE, allowNull: false },
+    value: { type: DataTypes.DOUBLE, allowNull: false },
+});
+
 DeviceTable.hasMany(CO2ReadingTable)
+DeviceTable.hasMany(COReadingTable)
 DeviceTable.hasMany(CH4ReadingTable)
+COReadingTable.belongsTo(DeviceTable);
+CO2ReadingTable.belongsTo(DeviceTable);
+CH4ReadingTable.belongsTo(DeviceTable);
 
 await sequelize.sync()
